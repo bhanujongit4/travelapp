@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
+import InquiryForm from '@/app/components/InquiryForm';
 
 
 // ─── COLOUR & TYPOGRAPHY TOKENS ───────────────────────────────────────────────
@@ -461,6 +462,21 @@ export default function IndiaPage() {
       {/* ══════════════════════════════════════════════════════════════
           4. DESTINATIONS SHOWCASE
       ══════════════════════════════════════════════════════════════ */}
+      <section className="section section-cream">
+        <div className="container" style={{ maxWidth: 900 }}>
+          <div style={{ textAlign: 'center', marginBottom: 42 }}>
+            <p className="cinzel" style={{ fontSize: '0.78rem', letterSpacing: '0.38em', color: 'var(--rg-mid)', marginBottom: 18 }}>
+              START PLANNING
+            </p>
+            <h2 className="cinzel" style={{ fontSize: 'clamp(1.7rem, 3.3vw, 2.7rem)', fontWeight: 400, marginBottom: 18 }}>
+              Tell Us Where You Want To Go
+            </h2>
+            <div className="rg-divider" />
+          </div>
+          <InquiryForm interestPlace="A Custom India Journey" />
+        </div>
+      </section>
+
       <section className="section">
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
