@@ -548,6 +548,95 @@ function InquiriesPanel({ pw }) {
   );
 }
 
+function CarRentalsPanel({ pw }) {
+  const [requests, setRequests] = useState([]);
+
+  const load = useCallback(() => {
+    api('/api/admin/car-rentals', {}, pw).then(d => Array.isArray(d) && setRequests(d));
+  }, [pw]);
+
+  useEffect(() => { load(); }, [load]);
+
+  async function del(id) {
+    if (!confirm('Delete this car rental request?')) return;
+    await api('/api/admin/car-rentals', { method: 'DELETE', body: { id } }, pw);
+    load();
+  }
+
+  return (
+    <div>
+      {requests.length === 0 ? (
+        <p className="adm-empty">No car rental requests yet.</p>
+      ) : requests.map(req => (
+        <div key={req.id} className="adm-inq-card">
+          <div className="adm-inq-header">
+            <div>
+              <p className="adm-inq-name">{req.name}</p>
+              <p className="adm-inq-meta">{req.email} &nbsp;Â·&nbsp; {req.phone}</p>
+              <span className="adm-inq-interest">
+                CAR: {String(req.car_type || '').toUpperCase()} &nbsp;Â·&nbsp; CITY: {req.pickup_city}
+              </span>
+              <p className="adm-inq-meta" style={{ marginTop: 10 }}>
+                Pickup: {req.pickup_date} &nbsp;Â·&nbsp; Dropoff: {req.dropoff_date}
+              </p>
+              {req.notes && <p className="adm-inq-message">"{req.notes}"</p>}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
+              <p className="adm-inq-date">{new Date(req.created_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</p>
+              <button className="adm-btn-danger" onClick={() => del(req.id)}>DISMISS</button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ReviewSubmissionsPanel({ pw }) {
+  const [submissions, setSubmissions] = useState([]);
+
+  const load = useCallback(() => {
+    api('/api/admin/review-submissions', {}, pw).then(d => Array.isArray(d) && setSubmissions(d));
+  }, [pw]);
+
+  useEffect(() => { load(); }, [load]);
+
+  async function del(id) {
+    if (!confirm('Delete this review submission?')) return;
+    await api('/api/admin/review-submissions', { method: 'DELETE', body: { id } }, pw);
+    load();
+  }
+
+  return (
+    <div>
+      {submissions.length === 0 ? (
+        <p className="adm-empty">No review submissions yet.</p>
+      ) : submissions.map(sub => (
+        <div key={sub.id} className="adm-inq-card">
+          <div className="adm-inq-header">
+            <div>
+              <p className="adm-inq-name">{sub.name}</p>
+              <p className="adm-inq-meta">{sub.email}{sub.location ? ` &nbsp;Â·&nbsp; ${sub.location}` : ''}</p>
+              <span className="adm-inq-interest">RATING: {sub.rating || 5}/5</span>
+              {sub.headline && <p style={{ marginTop: 12, fontFamily: 'Cinzel,serif', fontSize: '0.88rem' }}>{sub.headline}</p>}
+              {sub.text && <p className="adm-inq-message">"{sub.text}"</p>}
+              {sub.image_url && (
+                <p style={{ marginTop: 10, fontSize: '0.88rem', color: 'var(--rg-mid)' }}>
+                  Image: {sub.image_url}
+                </p>
+              )}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
+              <p className="adm-inq-date">{new Date(sub.created_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</p>
+              <button className="adm-btn-danger" onClick={() => del(sub.id)}>DISMISS</button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ReviewsPanel({ pw }) {
   const emptyForm = {
     name: '',
@@ -930,7 +1019,7 @@ function StoriesPanel({ pw }) {
 }
 
 // ── ROOT COMPONENT ────────────────────────────────────────────────────────────
-const PANELS = ['Regions', 'States & UTs', 'Places', 'Reviews', 'Stories', 'Inquiries'];
+const PANELS = ['Regions', 'States & UTs', 'Places', 'Reviews', 'Review Submissions', 'Stories', 'Inquiries', 'Car Rentals'];
 
 export default function AdminPage() {
   const [pw, setPw]             = useState('');
@@ -970,8 +1059,10 @@ export default function AdminPage() {
     'States & UTs': <StatesPanel     pw={pw} />,
     'Places':       <PlacesPanel     pw={pw} />,
     'Reviews':      <ReviewsPanel    pw={pw} />,
+    'Review Submissions': <ReviewSubmissionsPanel pw={pw} />,
     'Stories':      <StoriesPanel    pw={pw} />,
     'Inquiries':    <InquiriesPanel  pw={pw} />,
+    'Car Rentals':  <CarRentalsPanel pw={pw} />,
   };
 
   return (

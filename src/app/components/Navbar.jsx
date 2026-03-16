@@ -9,7 +9,12 @@ function normalizeNavData(rows) {
       ...r,
       states: (r.states || [])
         .filter(s => s?.slug)
-        .map(s => ({ ...s, places: (s.places || []).filter(p => p?.slug) }))
+        .map(s => ({
+          ...s,
+          places: (s.places || [])
+            .filter(p => p?.slug)
+            .sort((a, b) => (a.title || '').localeCompare(b.title || '')),
+        }))
         .sort((a, b) => (a.title || '').localeCompare(b.title || '')),
     }))
     .sort((a, b) => (a.title || '').localeCompare(b.title || ''));

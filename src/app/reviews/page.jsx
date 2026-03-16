@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabase';
+import ReviewSubmissionForm from '@/app/components/ReviewSubmissionForm';
 
 export const metadata = {
   title: 'Traveller Reviews | Good Morning India Holidays',
@@ -101,6 +102,8 @@ export default async function ReviewsPage() {
             })}
           </div>
         )}
+
+        <ReviewSubmissionForm />
       </section>
     </div>
   );

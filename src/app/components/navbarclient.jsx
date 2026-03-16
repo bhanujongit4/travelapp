@@ -48,18 +48,22 @@ const STYLE = `
     flex-shrink: 0;
   }
   .gmih-logo-box {
-    width: 46px;
-    height: 46px;
-    border: 1.5px solid var(--rg-mid);
+    width: 64px;
+    height: 48px;
+    border: 0px solid rgba(196,165,116,0.38);
+    background: rgba(255,255,255,0.04);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: var(--rg-light);
-    font-family: 'Cinzel', serif;
-    font-size: 0.5rem;
-    letter-spacing: 0.1em;
     overflow: hidden;
+    padding: 0px;
+  }
+  .gmih-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
   }
   .gmih-brand-text { display: flex; flex-direction: column; gap: 2px; }
   .gmih-brand-name {
@@ -89,9 +93,9 @@ const STYLE = `
   }
   .gmih-link {
     font-family: 'Cinzel', serif;
-    font-size: 0.62rem;
+    font-size: 0.68rem;
     letter-spacing: 0.28em;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.74);
     text-decoration: none;
     padding: 10px 16px;
     transition: color 0.2s;
@@ -110,9 +114,9 @@ const STYLE = `
   }
   .gmih-explore-btn {
     font-family: 'Cinzel', serif;
-    font-size: 0.62rem;
+    font-size: 0.68rem;
     letter-spacing: 0.28em;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.74);
     background: none;
     border: none;
     cursor: pointer;
@@ -143,16 +147,20 @@ const STYLE = `
     position: absolute;
     top: calc(100% + 1px);
     right: 0;
-    width: min(88vw, 860px);
-    background: var(--charcoal2);
-    border: 1px solid rgba(196,165,116,0.2);
+    width: min(92vw, 980px);
+    max-height: min(78vh, 760px);
+    overflow-y: auto;
+    background:
+      linear-gradient(180deg, rgba(42,32,22,0.98) 0%, rgba(28,22,16,0.98) 100%);
+    border: 1px solid rgba(196,165,116,0.26);
     border-top: 2px solid var(--rg-mid);
     box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    padding: 28px 32px 32px;
+    padding: 30px 32px 34px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 24px 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
     animation: megaSlide 0.18s ease forwards;
+    transform-origin: top right;
   }
   @keyframes megaSlide {
     from { opacity:0; transform:translateY(6px); }
@@ -160,49 +168,69 @@ const STYLE = `
   }
   .gmih-mega-empty {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.3);
+    font-size: 1.02rem;
+    color: rgba(255,255,255,0.46);
     font-style: italic;
     grid-column: 1/-1;
   }
-  .gmih-mega-col { display: flex; flex-direction: column; gap: 10px; }
+  .gmih-mega-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 18px 18px 16px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(196,165,116,0.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+  }
   .gmih-region-link {
     font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.25em;
-    color: var(--rg-light);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: #f4d3b8;
     text-decoration: none;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     border-bottom: 1px solid rgba(196,165,116,0.18);
     display: block;
     transition: color 0.2s;
   }
   .gmih-region-link:hover { color: white; }
-  .gmih-state-block { display: flex; flex-direction: column; gap: 4px; }
+  .gmih-state-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 14px;
+    border-left: 1px solid rgba(196,165,116,0.16);
+  }
   .gmih-state-link {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.78);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.92);
     text-decoration: none;
     transition: color 0.2s;
+    line-height: 1.1;
   }
   .gmih-state-link:hover { color: var(--rg-light); }
-  .gmih-place-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+  .gmih-place-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 0;
+  }
   .gmih-place-pill {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.76rem;
-    color: rgba(255,255,255,0.38);
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.7);
     text-decoration: none;
-    padding: 2px 7px;
-    border: 1px solid rgba(196,165,116,0.14);
-    transition: all 0.2s;
-    white-space: nowrap;
+    padding: 0;
+    border: none;
+    transition: color 0.2s, transform 0.2s;
+    white-space: normal;
+    line-height: 1.25;
   }
   .gmih-place-pill:hover {
-    color: var(--rg-light);
-    border-color: rgba(196,165,116,0.42);
-    background: rgba(196,165,116,0.07);
+    color: #fff2e6;
+    transform: translateX(2px);
   }
 
   /* Hamburger */
@@ -247,9 +275,9 @@ const STYLE = `
   .gmih-drawer-inner { padding: 8px 24px 32px; display: flex; flex-direction: column; }
   .gmih-m-link {
     font-family: 'Cinzel', serif;
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     letter-spacing: 0.25em;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.74);
     text-decoration: none;
     padding: 14px 0;
     border-bottom: 1px solid rgba(196,165,116,0.1);
@@ -268,9 +296,9 @@ const STYLE = `
   }
   .gmih-m-explore-label {
     font-family: 'Cinzel', serif;
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     letter-spacing: 0.25em;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.74);
     transition: color 0.2s;
   }
   .gmih-m-explore-row:hover .gmih-m-explore-label { color: var(--rg-light); }
@@ -278,32 +306,39 @@ const STYLE = `
   .gmih-m-region  { display: flex; flex-direction: column; gap: 10px; }
   .gmih-m-region-title {
     font-family: 'Cinzel', serif;
-    font-size: 0.58rem;
-    letter-spacing: 0.28em;
-    color: var(--rg-light);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: #f4d3b8;
     text-decoration: none;
   }
-  .gmih-m-state { padding-left: 12px; border-left: 1px solid rgba(196,165,116,0.18); display:flex; flex-direction:column; gap:6px; }
+  .gmih-m-state { padding-left: 12px; border-left: 1px solid rgba(196,165,116,0.18); display:flex; flex-direction:column; gap:8px; }
   .gmih-m-state-link {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.72);
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
     text-decoration: none;
     transition: color 0.2s;
   }
   .gmih-m-state-link:hover { color: var(--rg-light); }
-  .gmih-m-places { display:flex; flex-wrap:wrap; gap:5px; }
+  .gmih-m-places { display:flex; flex-wrap:wrap; gap:7px; }
   .gmih-m-place {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.38);
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.62);
     text-decoration: none;
-    padding: 2px 8px;
+    padding: 3px 9px;
     border: 1px solid rgba(196,165,116,0.14);
     transition: all 0.2s;
   }
   .gmih-m-place:hover { color: var(--rg-light); border-color: rgba(196,165,116,0.4); }
+
+  @media (max-width: 1180px) {
+    .gmih-mega {
+      width: min(94vw, 860px);
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+  }
 
   @media (max-width: 900px) {
     .gmih-links     { display: none; }
@@ -313,7 +348,7 @@ const STYLE = `
   @media (max-width: 520px) {
     .gmih-brand-sub  { display: none; }
     .gmih-brand-name { font-size: 0.58rem; letter-spacing: 0.1em; }
-    .gmih-logo-box   { width: 38px; height: 38px; }
+    .gmih-logo-box   { width: 0px; height: 0px; }
   }
 `;
 
@@ -345,7 +380,13 @@ export default function NavbarClient({ regions }) {
 
           {/* Brand */}
           <Link href="/" className="gmih-brand" onClick={closeDrawer}>
-            <div className="gmih-logo-box">LOGO</div>
+            <div className="gmih-logo-box">
+              <img
+                src="/images/logo.jpeg"
+                alt="Good Morning India Holidays"
+                className="gmih-logo-img"
+              />
+            </div>
             <div className="gmih-brand-text">
               <p className="gmih-brand-name">{BRAND_NAME}</p>
               <p className="gmih-brand-sub">Crafted journeys across India</p>
@@ -356,6 +397,7 @@ export default function NavbarClient({ regions }) {
           <div className="gmih-links">
             <Link href="/"      className="gmih-link">Home</Link>
             <Link href="/about" className="gmih-link">About Us</Link>
+            <Link href="/car-rental" className="gmih-link">Car Rental</Link>
             <Link href="/reviews" className="gmih-link">Reviews</Link>
             <Link href="/stories" className="gmih-link">Stories</Link>
 
@@ -377,13 +419,13 @@ export default function NavbarClient({ regions }) {
                         <Link href={`/explore/${region.slug}`} className="gmih-region-link" onClick={closeMega}>
                           {region.title}
                         </Link>
-                        {region.states.slice(0, 6).map(state => (
+                        {region.states.map(state => (
                           <div key={state.id} className="gmih-state-block">
                             <Link href={`/explore/${region.slug}/${state.slug}`} className="gmih-state-link" onClick={closeMega}>
                               {state.title}
                             </Link>
                             <div className="gmih-place-row">
-                              {state.places.slice(0, 3).map(place => (
+                              {state.places.map(place => (
                                 <Link key={place.id} href={`/explore/${region.slug}/${state.slug}/${place.slug}`} className="gmih-place-pill" onClick={closeMega}>
                                   {place.title}
                                 </Link>
@@ -415,6 +457,7 @@ export default function NavbarClient({ regions }) {
             <div className="gmih-drawer-inner">
               <Link href="/"      className="gmih-m-link" onClick={closeDrawer}>Home</Link>
               <Link href="/about" className="gmih-m-link" onClick={closeDrawer}>About Us</Link>
+              <Link href="/car-rental" className="gmih-m-link" onClick={closeDrawer}>Car Rental</Link>
               <Link href="/reviews" className="gmih-m-link" onClick={closeDrawer}>Reviews</Link>
               <Link href="/stories" className="gmih-m-link" onClick={closeDrawer}>Stories</Link>
 
@@ -432,13 +475,13 @@ export default function NavbarClient({ regions }) {
                         <Link href={`/explore/${region.slug}`} className="gmih-m-region-title" onClick={closeDrawer}>
                           {region.title}
                         </Link>
-                        {region.states.slice(0, 8).map(state => (
+                        {region.states.map(state => (
                           <div key={state.id} className="gmih-m-state">
                             <Link href={`/explore/${region.slug}/${state.slug}`} className="gmih-m-state-link" onClick={closeDrawer}>
                               {state.title}
                             </Link>
                             <div className="gmih-m-places">
-                              {state.places.slice(0, 4).map(place => (
+                              {state.places.map(place => (
                                 <Link key={place.id} href={`/explore/${region.slug}/${state.slug}/${place.slug}`} className="gmih-m-place" onClick={closeDrawer}>
                                   {place.title}
                                 </Link>

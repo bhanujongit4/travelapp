@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/app/lib/supabase';
 
+
 // ─── COLOUR & TYPOGRAPHY TOKENS ───────────────────────────────────────────────
 // Rose-gold palette + ivory/white, serif fonts to match hero's "font-serif" class
 // We import Cormorant Garamond (regal serif) + Cinzel (display caps) via Google Fonts
@@ -175,6 +176,24 @@ const STYLE = `
   .footer-shell { padding: 80px 40px 40px; }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-brand-lockup { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 22px; }
+  .footer-logo-box {
+    width: 112px;
+    aspect-ratio: 4 / 3;
+    flex-shrink: 0;
+    padding: 0px;
+    border: 1px solid rgba(196,165,116,0.24);
+    background: rgba(255,255,255,0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
 
   @media (max-width: 1024px) {
     .grid-4, .stats-grid, .process-grid { grid-template-columns: repeat(2, 1fr); }
@@ -200,6 +219,8 @@ const STYLE = `
     .newsletter-section, .footer-shell { padding-left: 20px; padding-right: 20px; }
     .newsletter-form { flex-direction: column; max-width: 100%; gap: 12px; }
     .footer-bottom { justify-content: center; text-align: center; }
+    .footer-brand-lockup { flex-direction: column; align-items: flex-start; }
+    .footer-logo-box { width: 0px; }
     .feature-grid > .img-box {
       min-height: 320px !important;
     }
@@ -592,7 +613,7 @@ export default function IndiaPage() {
       {/* ══════════════════════════════════════════════════════════════
           7. SPLIT — RAJASTHAN EDITORIAL
       ══════════════════════════════════════════════════════════════ */}
-      <section className="section">
+      <section className="section" style={{ display: 'none' }}>
         <div className="container">
           <div className="story-grid">
             <div>
@@ -632,6 +653,8 @@ export default function IndiaPage() {
       {/* ══════════════════════════════════════════════════════════════
           8. EXPERIENCES
       ══════════════════════════════════════════════════════════════ */}
+      
+
       <section className="section" style={{ background: 'var(--charcoal)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
@@ -924,7 +947,21 @@ export default function IndiaPage() {
           <div className="footer-grid">
             {/* Brand */}
             <div>
-              <h3 className="cinzel" style={{ fontSize: '1.4rem', fontWeight: 500, color: 'white', marginBottom: 20, letterSpacing: '0.15em' }}>GOOD MORNING INDIA HOLIDAYS</h3>
+              <div className="footer-brand-lockup">
+                <div className="footer-logo-box">
+                  <img
+                    src="/images/logo.jpeg"
+                    alt="Good Morning India Holidays"
+                    className="footer-logo"
+                  />
+                </div>
+                <div>
+                  <h3 className="cinzel" style={{ fontSize: '1.4rem', fontWeight: 500, color: 'white', marginBottom: 10, letterSpacing: '0.15em' }}>GOOD MORNING INDIA HOLIDAYS</h3>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--rg-light)', letterSpacing: '0.24em' }}>
+                    CURATED JOURNEYS ACROSS INDIA
+                  </p>
+                </div>
+              </div>
               <p style={{ fontSize: '0.97rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.85, fontWeight: 300, marginBottom: 24 }}>
                 Handcrafted journeys across the Indian subcontinent since 2008. 
                 Headquartered in New Delhi. Roots in every state.
