@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -50,15 +49,11 @@ export default function Hero() {
           }`}
           aria-hidden={idx !== currentSlide}
         >
-          <Image
+          <img
             src={slide.src}
             alt={slide.alt}
-            fill
-            className="object-cover"
-            priority={idx === 0}        // 👈 preloads first slide
+            className="h-full w-full object-cover"
             loading={idx === 0 ? 'eager' : 'lazy'}
-            sizes="100vw"
-            quality={idx === 0 ? 85 : 70} // 👈 slightly compressed
           />
         </div>
       ))}
