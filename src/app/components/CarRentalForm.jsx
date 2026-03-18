@@ -170,7 +170,7 @@ export default function CarRentalForm({ embedded = false }) {
 
           <div className="car-grid">
             <div>
-              <label className="car-label">THE PICKUP CITY</label>
+              <label className="car-label">PICKUP CITY</label>
               <input className="car-field" value={form.pickup_city} onChange={set('pickup_city')} placeholder="Jaipur" required />
             </div>
             <div>
