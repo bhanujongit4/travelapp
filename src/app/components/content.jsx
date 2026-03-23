@@ -166,6 +166,7 @@ const STYLE = `
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
   .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
   .destinations-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 16px; }
+  .golden-triangle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .feature-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 640px; }
   .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
   .story-image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
@@ -199,6 +200,7 @@ const STYLE = `
   @media (max-width: 1024px) {
     .grid-4, .stats-grid, .process-grid { grid-template-columns: repeat(2, 1fr); }
     .grid-3, .destinations-grid, .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .golden-triangle-grid { grid-template-columns: 1fr 1fr; }
     .grid-2, .feature-grid, .story-grid, .andaman-grid { grid-template-columns: 1fr; }
     .feature-grid { min-height: auto; }
     .story-grid { gap: 40px; }
@@ -208,7 +210,7 @@ const STYLE = `
     .container { padding: 0 20px; }
     .section { padding: 60px 0; }
     .section-sm { padding: 40px 0; }
-    .grid-4, .grid-3, .grid-2, .stats-grid, .destinations-grid, .story-image-grid, .process-grid, .footer-grid {
+    .grid-4, .grid-3, .grid-2, .stats-grid, .destinations-grid, .story-image-grid, .process-grid, .footer-grid, .golden-triangle-grid {
       grid-template-columns: 1fr;
     }
     .destinations-grid { grid-template-rows: none; }
@@ -253,6 +255,36 @@ const DESTINATIONS = [
   { name: 'Ladakh', tagline: 'Roof of the World', desc: 'Monasteries, moonscapes & the Pangong lake at dawn', height: 400, label: 'LADAKH — LEH & THE NUBRA VALLEY' },
   { name: 'Andaman', tagline: 'The Emerald Necklace', desc: 'Turquoise shallows, WWII relics & diving at Havelock', height: 400, label: 'ANDAMAN — HAVELOCK & NEIL ISLAND' },
   { name: 'Varanasi', tagline: 'The Eternal City', desc: 'Ghats, Ganga Aarti & the oldest living city on earth', height: 480, label: 'VARANASI — DAWN ON THE GANGES' },
+];
+
+const GOLDEN_TRIANGLE = [
+  {
+    city: 'new-delhi',
+    tag: 'OLD SOUL, NEW CAPITAL',
+    state: 'delhi',
+    label: '',
+    description: 'Start with sunrise at Jama Masjid, walk through Chandni Chowk, and end with a twilight drive past India Gate and Rashtrapati Bhavan.',
+    image: '/images/Delhi.jpg',
+    position: 'center',
+  },
+  {
+    city: 'jaipur',
+    tag: 'THE PINK CITY',
+    state: 'rajasthan',
+    label: '',
+    description: 'Amber Fort, royal observatories, artisan ateliers, and handpicked heritage stays create the most vibrant leg of the circuit.',
+    image: '/images/Jaipur.jpg',
+    position: 'center',
+  },
+  {
+    city: 'agra',
+    tag: 'MUGHAL GRANDEUR',
+    state: 'uttar-pradesh',
+    label: '',
+    description: 'Witness the Taj Mahal at dawn, explore Agra Fort with an expert storyteller, and follow the Yamuna into layers of imperial history.',
+    image: '/images/Agra.jpeg',
+    position: 'center',
+  },
 ];
 
 const PACKAGES = [
@@ -474,6 +506,73 @@ export default function IndiaPage() {
             <div className="rg-divider" />
           </div>
           <InquiryForm editableInterestPlace interestPlaceholder="e.g. Jaipur, Jodhpur, Udaipur" />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <p className="cinzel" style={{ fontSize: '0.78rem', letterSpacing: '0.4em', color: 'var(--rg-mid)', marginBottom: 20 }}>
+              THE CLASSIC NORTH INDIA CIRCUIT
+            </p>
+            <h2 className="cinzel" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 400, marginBottom: 20 }}>
+              Golden Triangle: Delhi, Jaipur, Agra
+            </h2>
+            <div className="rg-divider" style={{ marginBottom: 26 }} />
+            <p style={{ maxWidth: 920, margin: '0 auto', fontSize: '1.58rem', lineHeight: 1.85, color: 'var(--warm-gray)', fontWeight: 300 }}>
+              Three cities, one seamless story. Delhi gives you empires layered in one skyline, Jaipur brings royal craft and color,
+              and Agra closes the journey with timeless Mughal architecture. We plan this route with balanced drive windows, private
+              guided access, and handpicked stays so the classic circuit still feels deeply personal.
+            </p>
+          </div>
+
+          <div className="golden-triangle-grid">
+            {GOLDEN_TRIANGLE.map((stop) => (
+              <article key={stop.city} className="dest-card">
+                <div
+                  className="img-box dest-img"
+                  style={{
+                    height: 420,
+                    backgroundImage: `url(${stop.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: stop.position,
+                  }}
+                  data-label={stop.label}
+                />
+                <div className="dest-overlay">
+                  <p className="cinzel" style={{ fontSize: '0.68rem', letterSpacing: '0.3em', color: '#ffffff', marginBottom: 8 }}>
+                    {stop.tag}
+                  </p>
+                  <h3 className="cinzel" style={{ fontSize: '1.4rem', color: 'white', fontWeight: 500, marginBottom: 8 }}>
+                    {stop.city}
+                  </h3>
+                  <p style={{ fontSize: '1.08rem', color: 'rgba(255,255,255,0.93)', lineHeight: 1.75 }}>
+                    {stop.description}
+                  </p>
+                  <a
+                    href={`/explore/north-india/${encodeURIComponent(stop.state)}/${encodeURIComponent(stop.city)}`}
+                    style={{
+                      marginTop: 14,
+                      display: 'inline-block',
+                      fontSize: '0.76rem',
+                      letterSpacing: '0.24em',
+                      color: 'var(--rg-light)',
+                      textDecoration: 'none',
+                      borderBottom: '1px solid rgba(196,165,116,0.7)',
+                      paddingBottom: 4,
+                    }}
+                  >
+                    VISIT {stop.city.toUpperCase()} IN DETAIL
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 42, display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a className="btn-rg" href="/explore">VISIT PAGE IN DETAIL</a>
+            <a className="btn-rg-fill" href="/explore?tour=golden-triangle">GOLDEN TRIANGLE TOUR OVERVIEW</a>
+          </div>
         </div>
       </section>
 

@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
   const { regionSlug } = await params;
   const { data: region } = await supabase
     .from('regions').select('title').eq('slug', regionSlug).single();
-  return { title: region ? `${region.title} | Bharat Voyages` : 'Region' };
+  return { title: region ? `${region.title} | Good Morning India Holidays` : 'Region' };
 }
 
 const REGION_HERO_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/4/4c/National_Geographic_Map_of_Indian_Subcontinent.jpg';

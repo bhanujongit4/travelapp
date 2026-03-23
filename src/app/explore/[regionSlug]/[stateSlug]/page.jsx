@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
   const { stateSlug } = await params;
   const { data: state } = await supabase
     .from('states').select('title').eq('slug', stateSlug).single();
-  return { title: state ? `${state.title} | Bharat Voyages` : 'State' };
+  return { title: state ? `${state.title} | Good Morning India Holidays` : 'State' };
 }
 
 const STATE_HERO_IMAGE = '/images/state.png';

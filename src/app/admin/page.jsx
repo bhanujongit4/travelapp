@@ -592,6 +592,51 @@ function CarRentalsPanel({ pw }) {
   );
 }
 
+function GuideRequestsPanel({ pw }) {
+  const [requests, setRequests] = useState([]);
+
+  const load = useCallback(() => {
+    api('/api/admin/book-agent', {}, pw).then(d => Array.isArray(d) && setRequests(d));
+  }, [pw]);
+
+  useEffect(() => { load(); }, [load]);
+
+  async function del(id) {
+    if (!confirm('Delete this guide request?')) return;
+    await api('/api/admin/book-agent', { method: 'DELETE', body: { id } }, pw);
+    load();
+  }
+
+  return (
+    <div>
+      {requests.length === 0 ? (
+        <p className="adm-empty">No guide requests yet.</p>
+      ) : requests.map(req => (
+        <div key={req.id} className="adm-inq-card">
+          <div className="adm-inq-header">
+            <div>
+              <p className="adm-inq-name">{req.name}</p>
+              <p className="adm-inq-meta">{req.email} &nbsp;·&nbsp; {req.phone}</p>
+              <span className="adm-inq-interest">
+                DESTINATION: {req.destination} &nbsp;·&nbsp; TRAVELLERS: {req.travellers}
+              </span>
+              <p className="adm-inq-meta" style={{ marginTop: 10 }}>
+                Travel date: {req.travel_date}
+                {req.budget ? ` &nbsp;·&nbsp; Budget: ${req.budget}` : ''}
+              </p>
+              {req.notes && <p className="adm-inq-message">"{req.notes}"</p>}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
+              <p className="adm-inq-date">{new Date(req.created_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</p>
+              <button className="adm-btn-danger" onClick={() => del(req.id)}>DISMISS</button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ReviewSubmissionsPanel({ pw }) {
   const [submissions, setSubmissions] = useState([]);
 
@@ -1019,7 +1064,7 @@ function StoriesPanel({ pw }) {
 }
 
 // ── ROOT COMPONENT ────────────────────────────────────────────────────────────
-const PANELS = ['Regions', 'States & UTs', 'Places', 'Reviews', 'Review Submissions', 'Stories', 'Inquiries', 'Car Rentals'];
+const PANELS = ['Regions', 'States & UTs', 'Places', 'Reviews', 'Review Submissions', 'Stories', 'Inquiries', 'Car Rentals', 'Guide Requests'];
 
 export default function AdminPage() {
   const [pw, setPw]             = useState('');
@@ -1063,6 +1108,7 @@ export default function AdminPage() {
     'Stories':      <StoriesPanel    pw={pw} />,
     'Inquiries':    <InquiriesPanel  pw={pw} />,
     'Car Rentals':  <CarRentalsPanel pw={pw} />,
+    'Guide Requests': <GuideRequestsPanel pw={pw} />,
   };
 
   return (
@@ -1084,6 +1130,7 @@ export default function AdminPage() {
                 {p === 'Reviews'     && '★  '}
                 {p === 'Stories'     && '✎  '}
                 {p === 'Inquiries'   && '✉  '}
+                {p === 'Guide Requests' && '☎  '}
                 {p}
               </button>
             ))}
@@ -1109,6 +1156,7 @@ export default function AdminPage() {
     </>
   );
 }
+
 
 
 

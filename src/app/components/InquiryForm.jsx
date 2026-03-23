@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import CarRentalForm from '@/app/components/CarRentalForm';
+import BookAgentForm from '@/app/components/BookAgentForm';
 
 const QR_IMAGES = {
   explorer: '/images/qr/5k.jpeg',
@@ -226,6 +227,9 @@ export default function InquiryForm({ interestPlace = '', editableInterestPlace 
       <button type="button" className={`inq-tab${activeTab === 'car' ? ' active' : ''}`} onClick={() => setActiveTab('car')}>
         Car Rental
       </button>
+      <button type="button" className={`inq-tab${activeTab === 'agent' ? ' active' : ''}`} onClick={() => setActiveTab('agent')}>
+        Book Guide
+      </button>
     </div>
   );
 
@@ -260,6 +264,8 @@ export default function InquiryForm({ interestPlace = '', editableInterestPlace 
         {tabs}
         {activeTab === 'car' ? (
           <CarRentalForm embedded />
+        ) : activeTab === 'agent' ? (
+          <BookAgentForm embedded />
         ) : (
           <>
             <p className="inq-title">Plan Your Journey</p>

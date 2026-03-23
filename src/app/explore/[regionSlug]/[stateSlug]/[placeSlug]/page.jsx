@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
   const { placeSlug } = await params;
   const { data: place } = await supabase
     .from('places').select('title').eq('slug', placeSlug).single();
-  return { title: place ? `${place.title} | Bharat Voyages` : 'Place' };
+  return { title: place ? `${place.title} | Good Morning India Holidays` : 'Place' };
 }
 
 const STYLE = `
